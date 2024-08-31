@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titi Monkeys Population and Conservation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .chart-wrapper {
+            margin: 20px 0;
+        }
+        .pie-chart-wrapper {
+            width: 60%; 
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Titi Monkeys (Plecturocebus)</h1>
+
+    <div class="chart-container">
+        <h2>Population Trend (varies by species)</h2>
+        <div class="chart-wrapper">
+            <canvas id="titiMonkeysPopulation"></canvas>
+        </div>
+        <h2>Conservation Efforts</h2>
+        <div class="chart-wrapper pie-chart-wrapper">
+            <canvas id="titiMonkeysConservation"></canvas>
+        </div>
+    </div>
+    <div class="arrow-container">
+        <a href="south_america.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+    <script>
+
+        const titiMonkeysPopulationData = {
+            labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Titi Monkeys Population',
+                data: [5000, 4800, 4600, 4400, 4200, 4000, 3800, 3600, 3400, 3200, 3000, 2800, 2600, 2400, 2200],
+                fill: false,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                tension: 0.1
+            }]
+        };
+
+
+        const titiMonkeysConservationData = {
+            labels: ['Habitat Protection', 'Research', 'Law Enforcement'],
+            datasets: [{
+                data: [7, 6, 5],
+                backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(153, 102, 255, 0.6)', 'rgba(255, 159, 64, 0.6)'],
+                hoverBackgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)']
+            }]
+        };
+
+
+        const titiMonkeysPopulationCtx = document.getElementById('titiMonkeysPopulation').getContext('2d');
+        new Chart(titiMonkeysPopulationCtx, {
+            type: 'line',
+            data: titiMonkeysPopulationData
+        });
+
+
+        const titiMonkeysConservationCtx = document.getElementById('titiMonkeysConservation').getContext('2d');
+        new Chart(titiMonkeysConservationCtx, {
+            type: 'pie',
+            data: titiMonkeysConservationData
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardians of Wildlife</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        
+
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin: 0; 
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            transition: color 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            color: #e94e1b;
+        }
+
+
+        nav ul li .dropbtn {
+            cursor: pointer;
+        }
+
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        nav ul li .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        nav ul li .dropdown-content a:hover {
+            background-color: #e94e1b;
+            color: #fff;
+        }
+
+        nav ul li.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        main {
+            padding-top: 57px; 
+        }
+
+
+        .hero {
+            background-image: url('2.webp');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            filter: brightness(60%); 
+            margin: 0;
+        }
+
+        .hero-content {
+            color: #ff0000;
+            padding: 20px 40px;
+            border-radius: 10px;
+        }
+
+        .hero-content h1 {
+            font-size: 4em;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+
+        .services {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 20px;
+            background-color: #fff;
+            margin: 40px 20px;
+            flex-wrap: wrap;
+        }
+
+        .service {
+            text-align: center;
+            width: 30%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 10px; 
+        }
+
+        .service h3 {
+            color: #e94e1b;
+            margin-bottom: 15px;
+        }
+
+        .service p {
+            color: #333;
+        }
+
+        .service img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .service a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-10px);
+        }
+
+
+        footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        footer p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        footer a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #e94e1b;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+
+            window.addEventListener('load', function() {
+                const scrollPosition = sessionStorage.getItem('scrollPosition');
+                if (scrollPosition !== null) {
+                    window.scrollTo(0, parseInt(scrollPosition, 10));
+                    sessionStorage.removeItem('scrollPosition');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="Aboutus.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Explore</a>
+                    <div class="dropdown-content">
+                        <a href="species.html">Endangered Species</a>
+                        <a href="reason.html">Reason</a>
+                        <a href="solution.html">Solution</a>
+                        <a href="quiz.html">Fun Quizzes</a>
+                        <a href="timeline.html">Timeline</a>
+                    </div>
+                </li>
+                <li><a href="comment_section.html">Comment section</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>DANGER!</h1>
+            </div>
+        </section>
+        <section class="services">
+            <a href="species.html" class="service">
+                <img src="originalImage.png" alt="Icon 1">
+                <h3>Endangered species</h3>
+                <p>Recognize the species that are rapidly approaching extinction.</p>
+            </a>
+            <a href="reason.html" class="service">
+                <img src="XDesign.png" alt="Icon 2">
+                <h3>Reason</h3>
+                <p>Understand the factors driving these species to the brink of extinction.</p>
+            </a>
+            <a href="solution.html" class="service">
+                <img src="XDesign (1).png" alt="Icon 3">
+                <h3>Solution</h3>
+                <p>Explore ways to save and protect these endangered species.</p>
+            </a>
+        </section>
+    </main>
+    <footer>
+        <p>Privacy Policy | Terms of Service</p>
+    </footer>
+</body>
+</html>

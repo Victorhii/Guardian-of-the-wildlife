@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sette Fratelli Cave Salamander Population and Conservation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .chart-wrapper {
+            margin: 20px 0;
+        }
+        .pie-chart-wrapper {
+            width: 60%; 
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Sette Fratelli Cave Salamander (Speleomantes sarrabusensis)</h1>
+
+    <div class="chart-container">
+        <h2>Population Trend (varies by year)</h2>
+        <div class="chart-wrapper">
+            <canvas id="setteFratelliSalamanderPopulation"></canvas>
+        </div>
+        <h2>Conservation Efforts</h2>
+        <div class="chart-wrapper pie-chart-wrapper">
+            <canvas id="setteFratelliSalamanderConservation"></canvas>
+        </div>
+    </div>
+    <div class="arrow-container">
+        <a href="europe.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+    <script>
+
+        const setteFratelliSalamanderPopulationData = {
+            labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Sette Fratelli Cave Salamander Population',
+                data: [500, 480, 460, 440, 420, 400, 380, 360, 340, 320, 300, 280, 260, 240, 220],
+                fill: false,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                tension: 0.1
+            }]
+        };
+
+
+        const setteFratelliSalamanderConservationData = {
+            labels: ['Habitat Protection', 'Research', 'Species Monitoring'],
+            datasets: [{
+                data: [7, 6, 8],
+                backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(54, 162, 235, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+                hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)']
+            }]
+        };
+
+
+        const setteFratelliSalamanderPopulationCtx = document.getElementById('setteFratelliSalamanderPopulation').getContext('2d');
+        new Chart(setteFratelliSalamanderPopulationCtx, {
+            type: 'line',
+            data: setteFratelliSalamanderPopulationData
+        });
+
+
+        const setteFratelliSalamanderConservationCtx = document.getElementById('setteFratelliSalamanderConservation').getContext('2d');
+        new Chart(setteFratelliSalamanderConservationCtx, {
+            type: 'pie',
+            data: setteFratelliSalamanderConservationData
+        });
+    </script>
+</body>
+</html>
