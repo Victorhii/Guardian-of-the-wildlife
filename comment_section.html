@@ -350,7 +350,8 @@
             });
         });
 
-        document.getElementById('removeButton').addEventListener('click', () => {
+        document.getElementById('removeButton').addEventListener('click', (event) => {
+            event.preventDefault();
             document.getElementById('imagePreview').classList.remove('active');
             document.getElementById('PhotoURL').value = ''; 
         });
