@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Wolf Population and Conservation</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .chart-wrapper {
+            margin: 20px 0;
+        }
+        .pie-chart-wrapper {
+            width: 60%; 
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Red Wolf (Canis rufus)</h1>
+
+    <div class="chart-container">
+        <h2>Population Trend (2010 - 2024)</h2>
+        <div class="chart-wrapper">
+            <canvas id="redWolfPopulation"></canvas>
+        </div>
+        <h2>Conservation Efforts</h2>
+        <div class="chart-wrapper pie-chart-wrapper">
+            <canvas id="redWolfConservation"></canvas>
+        </div>
+    </div>
+    <div class="arrow-container">
+        <a href="north_america.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+    <script>
+        const redWolfPopulationData = {
+            labels: ['2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+            datasets: [{
+                label: 'Red Wolf Population',
+                data: [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40, 35, 30],
+                fill: false,
+                borderColor: 'rgba(153, 102, 255, 1)',
+                tension: 0.1
+            }]
+        };
+
+        const redWolfConservationData = {
+            labels: ['Habitat Protection', 'Captive Breeding', 'Research'],
+            datasets: [{
+                data: [8, 7, 6],
+                backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 159, 64, 0.6)', 'rgba(153, 102, 255, 0.6)'],
+                hoverBackgroundColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)', 'rgba(153, 102, 255, 1)']
+            }]
+        };
+
+        const redWolfPopulationCtx = document.getElementById('redWolfPopulation').getContext('2d');
+        new Chart(redWolfPopulationCtx, {
+            type: 'line',
+            data: redWolfPopulationData
+        });
+
+        const redWolfConservationCtx = document.getElementById('redWolfConservation').getContext('2d');
+        new Chart(redWolfConservationCtx, {
+            type: 'pie',
+            data: redWolfConservationData
+        });
+    </script>
+</body>
+</html>

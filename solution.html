@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>solution</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+           
+        }
+
+        h1{
+            font-size: 1.5em;
+        }
+
+        .hex-container {
+            position: relative;
+            width: 600px; 
+            height: 600px; 
+        }
+
+        .hex-container > div {
+            position: absolute;
+            width: 200px;
+            height: 200px; 
+        }
+
+        .middle {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .side {
+            top: 50%;
+            left: calc(50% + 200px); 
+            transform: translate(-50%, -50%);
+        }
+
+        .left {
+            top: 50%;
+            left: calc(50% - 200px); 
+            transform: translate(-50%, -50%);
+        }
+
+        .top-left {
+            top: calc(50% - 162px); 
+            left: calc(50% - 100px); 
+            transform: translate(-50%, -50%);
+        }
+
+        .top-right {
+            top: calc(50% - 162px); 
+            left: calc(50% + 100px); 
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-left {
+            top: calc(50% + 162px); 
+            left: calc(50% - 100px); 
+            transform: translate(-50%, -50%);
+        }
+
+        .bottom-right {
+            top: calc(50% + 162px); 
+            left: calc(50% + 100px);
+            transform: translate(-50%, -50%);
+        }
+
+        svg {
+            width: 200px;
+            height: 200px; 
+            display: block; 
+            display: flex;
+            margin-left: calc(50% + 260px);
+            margin-right: auto;
+   
+        }
+
+        #hex {
+            stroke-width: 2;
+            stroke: teal;
+            fill-opacity: 0.6;
+            transition: fill-opacity .8s;
+        }
+
+        svg:hover #hex {
+            fill-opacity: 1;
+        }
+
+        #text {
+            stroke-width: 0.5;
+            stroke: teal;
+            fill-opacity: 0.4;
+            fill: teal;
+            transition: fill-opacity .8s;
+        }
+
+        svg:hover #text {
+            fill-opacity: 1;
+        }
+
+        .descriptioncontainer{
+            display: flex;
+            font-style: italic;
+            position: absolute
+       
+        }
+
+        .description {
+            color: rgb(0, 0, 0);
+            background-color: antiquewhite;
+            width: 300px;
+            max-height: 100px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            padding-left: 10px; 
+            padding-top: 10px;
+            padding-right: 10px;
+            padding-bottom: 30px;
+        }
+
+
+
+
+        .modal {
+            display: none; 
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7); 
+            font-family: 'Arial', sans-serif;
+        }
+
+
+        .modal-content {
+            position: relative;
+            background-color: #ffffff;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 10px;
+            width: 400px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: slide-down 0.4s ease-out;
+        }
+
+        @keyframes slide-down {
+            from {
+                top: -100px;
+                opacity: 0;
+            }
+            to {
+                top: 0;
+                opacity: 1;
+            }
+        }
+
+
+        .modal-header {
+            padding: 15px 20px;
+            background-color: teal;
+            color: white;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            text-align: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+
+        .modal-body {
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+        }
+
+
+        .modal-footer {
+            padding: 10px;
+            text-align: center;
+            background-color: #f1f1f1;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+        }
+
+
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn.confirm {
+            background-color: teal;
+            color: white;
+        }
+
+        .btn.confirm:hover {
+            background-color: #006d6d;
+        }
+
+        .btn.cancel {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .btn.cancel:hover {
+            background-color: #999;
+        }
+
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+        }
+        #discussion-section {
+            width: 80%; 
+            margin: 20px auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box; 
+        }
+
+
+        #discussion-section h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        #name-input,
+        #comment-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #comment-input {
+            height: 50px;
+            resize: none;
+        }
+
+        #post-comment {
+            align-self: flex-end;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #post-comment:hover {
+            background-color: #0056b3;
+        }
+
+        .comment {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment:hover {
+            background-color: #f9f9f9;
+        }
+
+        .comment-content {
+            margin-left: 10px;
+            flex: 1;
+            position: relative;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .comment-text {
+            margin: 0;
+            font-size: 16px;
+            display: block;
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word; 
+            white-space: normal; 
+            max-width: 100%; 
+        }
+
+        .timestamp {
+            font-style: italic;
+            color: #999;
+        }
+
+        .edited {
+            font-style: italic;
+            color: #999;
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+        }
+
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .actions button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .actions button:hover {
+            color: #0056b3;
+        }
+
+        .actions button .fa {
+            font-size: 16px;
+        }
+
+        .actions button:hover .fa {
+            color: darkgray;
+        }
+
+        .actions button:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .reply-form {
+            display: none;
+            margin-top: 10px;
+            padding-left: 50px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .reply-form button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .reply {
+            margin-left: 50px;
+            margin-top: 10px;
+        }
+
+        .like-button.active .fa-thumbs-up,
+        .dislike-button.active .fa-thumbs-down {
+            color: red;
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+        .explore-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="explore-text">
+        Tap on the image to explore more!
+    </div>
+
+    <div class="hex-container">
+        <a href="https://defenders.org/issues/advocating-species-internationally">
+        <div class="top-left">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img1" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="advocate.jpeg" x="-20" y="-10" width="140" height="110" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img1)" />
+            </svg>
+        </a>
+        </div>
+        <div class="top-right">
+            <a  href="https://www.worldwildlife.org/pages/buyer-beware-a-guide-to-shopping-smart-to-protect-wildlife-and-plants">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img2" patternUnits="userSpaceOnUse" width="100" height="100">
+
+                            <image xlink:href="animalproducts.jpeg" x="-10" y='-26' width="150" height="150" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img2)" />
+            </svg>
+            </a>
+        </div>
+        <div class="middle">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img3" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="solution.png" y="9" x="5" width="90" height="90" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img3)" />
+            </svg>
+        </div>
+        <div class="side">
+            <a href="https://www.constellation.com/energy-101/energy-innovation/how-to-reduce-your-carbon-footprint.html">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img4" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="carbon.png" x="0"y='0' width="100" height="100" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img4)" />
+            </svg>
+            </a>
+        </div>
+        <div class="left">
+            <a href="https://forest-master.com/2021/11/04/8-ways-to-create-a-wildlife-friendly-outdoor-space/?srsltid=AfmBOoqEx_HuUyOl4mwzHqZwSWTwKl7q0EyB5rQmIoVa-gX8D0oiK7mv">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img5" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="wildlifefriendly.jpeg" x="-5" y ="-14" width="150" height="130" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img5)" />
+            </svg>
+            </a>
+        </div>
+        <div class="bottom-left">
+            <a href="https://www.worldanimalprotection.ca/blogs/reducing-plastic-pollution/">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img6" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="plastics.jpeg" x="0" y ="-100" width="150" height="300" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img6)" />
+            </svg>
+            </a>
+        </div>
+        <div class="bottom-right">
+            <a href="https://www.earthandanimals.com/advocate/how-to-help-animals/params/post/1282480/conserve-water#:~:text=Install%20water%2Dsoftening%20systems%20only,softeners%20off%20while%20on%20vacation.&text=Never%20put%20water%20down%20the,plant%20or%20garden%2C%20or%20cleaning.">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="img7" patternUnits="userSpaceOnUse" width="100" height="100">
+                        <image xlink:href="water.jpeg" x="0" y="7" width="123" height="100" />
+                    </pattern>
+                </defs>
+                <polygon id="hex" points="50 1 95 25 95 75 50 99 5 75 5 25" fill="url(#img7)" />
+            </svg>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% + -370px);  margin-left:  100px">
+            <h1>Avoid using plastics</h1>
+            <p>Avoid single-use plastics to protect marine life.</p>
+        </div>
+    </div>
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% + -500px); margin-left: 10px">
+            <h1>Create Wildlife-Friendly Spaces</h1>
+            <p>Create wildlife-friendly spaces in your community.</p>
+        </div>
+    </div>
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% + -725px); margin-left: 100px">
+            <h1>Advocate for Wildlife</h1>
+            <p>Advocate for wildlife protection laws and policies.</p>
+        </div>
+    </div>
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% - 1130px);  margin-left:  930px">
+            <h1>Avoid buying animal products </h1>
+            <p>This can protect species from being hunt</p>
+
+        </div>
+    </div>
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% - 790px); margin-left: 930px">
+            <h1>Reduce Water Use</h1>
+            <p>Reduce water consumption to conserve vital ecosystems.</p>
+        </div>
+    </div>
+    <div class="descriptioncontainer">
+        <div class="description" style="margin-top: calc(50% - 1000px); margin-left: 1000px">
+            <h1>Reduce Carbon Footprint</h1>
+            <p>Reduce your carbon footprint by adopting sustainable practices.</p>
+        </div>
+    </div>
+
+    <div id="confirmationModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <h2>Confirmation</h2>
+            </div>
+            <div class="modal-body">
+                <p>We are moving you on to a global website to explore more details!</p>
+                <p>Are you sure?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmBtn" class="btn confirm">Yes</button>
+                <button id="cancelBtn" class="btn cancel">No</button>
+            </div>
+        </div>
+    </div>
+    <div id="discussion-section">
+            <h2>Comments</h2>
+            <div id="comment-form">
+                <input type="text" id="name-input" placeholder="Your name">
+                <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+                <button id="post-comment">Comment</button>
+            </div>
+            <div id="comments-container"></div>
+        </div>
+
+        <script>
+            document.getElementById('post-comment').addEventListener('click', function() {
+                const nameInput = document.getElementById('name-input');
+                const commentInput = document.getElementById('comment-input');
+                const username = nameInput.value.trim();
+                const commentText = commentInput.value.trim();
+                if (username !== '' && commentText !== '') {
+                    addComment(username, commentText, new Date());
+                    nameInput.value = '';
+                    commentInput.value = '';
+                }
+            });
+
+            function addComment(username, text, timestamp, isReply = false, parentElement = null) {
+                const commentElement = document.createElement('div');
+                commentElement.className = isReply ? 'comment reply' : 'comment';
+
+                commentElement.innerHTML = `
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <strong>${username}</strong>
+                            <span class="timestamp" data-timestamp="${timestamp}">${timeSince(timestamp)} ago</span>
+                            <span class="edited" style="display: none;">Edited</span>
+                        </div>
+                        <p class="comment-text">${text}</p>
+                        <div class="actions">
+                            <button class="like-button" data-title="Like"><i class="fa fa-thumbs-up"></i> <span class="like-count">0</span></button>
+                            <button class="dislike-button" data-title="Dislike"><i class="fa fa-thumbs-down"></i></button>
+                            <button class="reply-button" data-title="Reply"><i class="fa fa-reply"></i> Reply</button>
+                            <button class="edit-button" data-title="Edit"><i class="fa fa-edit"></i> Edit</button>
+                            <button class="delete-button" data-title="Delete"><i class="fa fa-trash"></i> Delete</button>
+                        </div>
+                        <div class="reply-form">
+                            <textarea placeholder="Add a reply..."></textarea>
+                            <button class="post-reply">Reply</button>
+                            <button class="cancel-reply">Cancel</button>
+                        </div>
+                    </div>
+                `;
+
+                if (isReply && parentElement) {
+                    parentElement.querySelector('.comment-content').appendChild(commentElement);
+                } else {
+                    document.getElementById('comments-container').appendChild(commentElement);
+                }
+
+                commentElement.querySelector('.like-button').addEventListener('click', function() {
+                    toggleLikeDislike(commentElement, 'like');
+                });
+
+                commentElement.querySelector('.dislike-button').addEventListener('click', function() {
+                    toggleLikeDislike(commentElement, 'dislike');
+                });
+
+                commentElement.querySelector('.reply-button').addEventListener('click', function() {
+                    const replyForm = commentElement.querySelector('.reply-form');
+                    replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
+                });
+
+                commentElement.querySelector('.post-reply').addEventListener('click', function() {
+                    const replyInput = commentElement.querySelector('.reply-form textarea');
+                    const replyText = replyInput.value.trim();
+                    if (replyText !== '') {
+                        addComment(username, replyText, new Date(), true, commentElement);
+                        replyInput.value = '';
+                        commentElement.querySelector('.reply-form').style.display = 'none';
+                    }
+                });
+
+                document.querySelectorAll('.cancel-reply').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const replyForm = this.parentElement;
+                        replyForm.style.display = 'none';
+                    });
+                });
+
+                commentElement.querySelector('.edit-button').addEventListener('click', function() {
+                    const commentTextElement = commentElement.querySelector('.comment-text');
+                    const newText = prompt('Edit your comment:', commentTextElement.textContent);
+                    if (newText) {
+                        commentTextElement.textContent = newText;
+                        commentElement.querySelector('.edited').style.display = 'inline';
+                    }
+                });
+
+                commentElement.querySelector('.delete-button').addEventListener('click', function() {
+                    const confirmDelete = confirm('Are you sure you want to delete this comment?');
+                    if (confirmDelete) {
+                        commentElement.remove();
+                    }
+                });
+
+                updateTimestamps();
+            }
+
+            function toggleLikeDislike(commentElement, type) {
+                const likeButton = commentElement.querySelector('.like-button');
+                const dislikeButton = commentElement.querySelector('.dislike-button');
+                const likeCountSpan = likeButton.querySelector('.like-count');
+                const currentLikeCount = parseInt(likeCountSpan.textContent);
+
+                if (type === 'like') {
+                    if (likeButton.classList.contains('active')) {
+
+                        likeButton.classList.remove('active');
+                        likeCountSpan.textContent = currentLikeCount - 1;
+                    } else {
+
+                        likeButton.classList.add('active');
+                        likeCountSpan.textContent = currentLikeCount + 1;
+                        dislikeButton.classList.remove('active');
+                        const dislikeCountSpan = dislikeButton.querySelector('.like-count');
+                        if (dislikeCountSpan) {
+                            dislikeCountSpan.textContent = '0';
+                        }
+                    }
+                } else if (type === 'dislike') {
+                    if (dislikeButton.classList.contains('active')) {
+
+                        dislikeButton.classList.remove('active');
+                        const dislikeCountSpan = dislikeButton.querySelector('.like-count');
+                        if (dislikeCountSpan) {
+                            dislikeCountSpan.textContent = '0';
+                        }
+                    } else {
+
+                        dislikeButton.classList.add('active');
+                        if (likeButton.classList.contains('active')) {
+                            likeButton.classList.remove('active');
+                            likeCountSpan.textContent = currentLikeCount - 1;
+                        }
+                    }
+                }
+            }
+
+
+            function updateTimestamps() {
+                const timestamps = document.querySelectorAll('.timestamp');
+                timestamps.forEach(function(timestampElement) {
+                    const timestamp = new Date(timestampElement.getAttribute('data-timestamp'));
+                    timestampElement.textContent = timeSince(timestamp) + ' ago';
+                });
+            }
+
+            function timeSince(date) {
+                const seconds = Math.floor((new Date() - date) / 1000);
+                let interval = Math.floor(seconds / 31536000);
+                if (interval >= 1) return interval + ' years';
+                interval = Math.floor(seconds / 2592000);
+                if (interval >= 1) return interval + ' months';
+                interval = Math.floor(seconds / 86400);
+                if (interval >= 1) return interval + ' days';
+                interval = Math.floor(seconds / 3600);
+                if (interval >= 1) return interval + ' hours';
+                interval = Math.floor(seconds / 60);
+                if (interval >= 1) return interval + ' minutes';
+                return Math.floor(seconds) + ' seconds';
+            }
+
+            setInterval(updateTimestamps, 60000);
+
+        </script>
+        <div class="arrow-container">
+            <a href="index.html">
+                <div class="arrow">
+                    <img src="XDesign (1) copy.png" alt="Left Arrow">
+                </div>
+            </a>
+        </div>
+    </div>
+    
+    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = document.getElementById("confirmationModal");
+            if (history.state && history.state.modalOpen) {
+                modal.style.display = "none";
+            }
+        });
+
+        window.addEventListener('popstate', function(event) {
+            if (event.state && event.state.modalOpen) {
+                var modal = document.getElementById("confirmationModal");
+                modal.style.display = "none";
+            }
+        });
+
+ 
+        var modal = document.getElementById("confirmationModal");
+
+
+        var hexagons = document.querySelectorAll('.hex-container a');
+
+
+        var span = document.getElementsByClassName("close")[0];
+
+        var confirmBtn = document.getElementById("confirmBtn");
+        var cancelBtn = document.getElementById("cancelBtn");
+
+
+        var targetLink = "";
+
+        function openModal(link) {
+            targetLink = link;
+            modal.style.display = "block";
+            history.pushState({ modalOpen: true }, "");
+        }
+
+
+        hexagons.forEach(function(hexagon) {
+            hexagon.addEventListener('click', function(event) {
+                event.preventDefault(); 
+                openModal(hexagon.href); 
+            });
+        });
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+
+        confirmBtn.onclick = function() {
+            window.location.href = targetLink;
+        }
+
+
+        cancelBtn.onclick = function() {
+            modal.style.display = "none";
+        }
+
+
+
+    </script>
+
+</body>
+</html>
+

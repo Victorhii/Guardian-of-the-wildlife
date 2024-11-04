@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endangered Species Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            margin-bottom: 40px;
+            z-index: 1; 
+        }
+        h1 {
+            text-align: center;
+            color: #00bfa5;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #progressBarContainer {
+            width: 100%;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        #progressBar {
+            position: relative;
+            height: 30px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: #333;
+            color: #fff;
+            padding: 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            display: none;
+            white-space: nowrap;
+        }
+
+        .tooltip.correct {
+            left: 0;
+        }
+
+        .tooltip.incorrect {
+            right: 0;
+        }
+
+        #message {
+            padding: 10px;
+            margin-top: 20px;
+            text-align: center;
+            border-radius: 5px;
+            color: white;
+            display: none;
+        }
+        #submitQuiz {
+            background-color: #00695c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            cursor: pointer;
+        }
+        #submitQuiz:hover {
+            background-color: #004d40;
+        }
+        .arrow-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Endangered Species Quiz</h1>
+        
+        <div id="progressContainer" style="width: 100%; background-color: #e0e0e0; margin-bottom: 20px;">
+            <div id="progressBar" style="width: 0%; height: 30px; background-color: #4CAF50;"></div>
+        </div>
+
+        <div class="question" id="question1">
+            <p>1. Which of these species is critically endangered?</p>
+            <label><input type="radio" name="q1" value="Amur Leopard"> Amur Leopard</label><br>
+            <label><input type="radio" name="q1" value="African Elephant"> African Elephant</label><br>
+            <label><input type="radio" name="q1" value="Polar Bear"> Polar Bear</label><br>
+            <label><input type="radio" name="q1" value="Bald Eagle"> Bald Eagle</label>
+        </div>
+
+        <div class="question" id="question2">
+            <p>2. What is the primary cause of habitat loss?</p>
+            <label><input type="radio" name="q2" value="Climate Change"> Climate Change</label><br>
+            <label><input type="radio" name="q2" value="Overhunting"> Overhunting</label><br>
+            <label><input type="radio" name="q2" value="Deforestation"> Deforestation</label><br>
+            <label><input type="radio" name="q2" value="Pollution"> Pollution</label>
+        </div>
+
+        <div class="question" id="question3">
+            <p>3. Which organization is responsible for global wildlife conservation?</p>
+            <label><input type="radio" name="q3" value="UNESCO"> UNESCO</label><br>
+            <label><input type="radio" name="q3" value="WWF"> WWF</label><br>
+            <label><input type="radio" name="q3" value="NATO"> NATO</label><br>
+            <label><input type="radio" name="q3" value="WHO"> WHO</label>
+        </div>
+
+        <div class="question" id="question4">
+            <p>4. What is the main reason for the decline in the tiger population?</p>
+            <label><input type="radio" name="q4" value="Illegal Wildlife Trade"> Illegal Wildlife Trade</label><br>
+            <label><input type="radio" name="q4" value="Climate Change"> Climate Change</label><br>
+            <label><input type="radio" name="q4" value="Deforestation"> Deforestation</label><br>
+            <label><input type="radio" name="q4" value="Urbanization"> Urbanization</label>
+        </div>
+
+        <div class="question" id="question5">
+            <p>5. Which species is known to be endangered due to pollution?</p>
+            <label><input type="radio" name="q5" value="Sea Turtle"> Sea Turtle</label><br>
+            <label><input type="radio" name="q5" value="Bald Eagle"> Bald Eagle</label><br>
+            <label><input type="radio" name="q5" value="Amur Leopard"> Amur Leopard</label><br>
+            <label><input type="radio" name="q5" value="Panda"> Panda</label>
+        </div>
+
+        <div class="question" id="question6">
+            <p>6. What can individuals do to help protect endangered species?</p>
+            <label><input type="radio" name="q6" value="Support Wildlife Conservation Organizations"> Support Wildlife Conservation Organizations</label><br>
+            <label><input type="radio" name="q6" value="Adopt Sustainable Practices"> Adopt Sustainable Practices</label><br>
+            <label><input type="radio" name="q6" value="Reduce, Reuse, Recycle"> Reduce, Reuse, Recycle</label><br>
+            <label><input type="radio" name="q6" value="All of the Above"> All of the Above</label>
+        </div>
+
+        <div class="question" id="question7">
+            <p>7. Which species is known for its conservation success story?</p>
+            <label><input type="radio" name="q7" value="Bald Eagle"> Bald Eagle</label><br>
+            <label><input type="radio" name="q7" value="Passenger Pigeon"> Passenger Pigeon</label><br>
+            <label><input type="radio" name="q7" value="Tasmanian Tiger"> Tasmanian Tiger</label><br>
+            <label><input type="radio" name="q7" value="Dodo"> Dodo</label>
+        </div>
+
+        <div class="question" id="question8">
+            <p>8. What does IUCN stand for?</p>
+            <label><input type="radio" name="q8" value="International Union for Conservation of Nature"> International Union for Conservation of Nature</label><br>
+            <label><input type="radio" name="q8" value="International Union for Climate Change"> International Union for Climate Change</label><br>
+            <label><input type="radio" name="q8" value="International Union for Nature Protection"> International Union for Nature Protection</label><br>
+            <label><input type="radio" name="q8" value="International Union for Endangered Species"> International Union for Endangered Species</label>
+        </div>
+
+        <div class="question" id="question9">
+            <p>9. What is the status of the Mountain Gorilla population?</p>
+            <label><input type="radio" name="q9" value="Endangered"> Endangered</label><br>
+            <label><input type="radio" name="q9" value="Critically Endangered"> Critically Endangered</label><br>
+            <label><input type="radio" name="q9" value="Vulnerable"> Vulnerable</label><br>
+            <label><input type="radio" name="q9" value="Extinct in the Wild"> Extinct in the Wild</label>
+        </div>
+
+        <div class="question" id="question10">
+            <p>10. Which animal is often poached for its horn?</p>
+            <label><input type="radio" name="q10" value="Rhino"> Rhino</label><br>
+            <label><input type="radio" name="q10" value="Elephant"> Elephant</label><br>
+            <label><input type="radio" name="q10" value="Tiger"> Tiger</label><br>
+            <label><input type="radio" name="q10" value="Panda"> Panda</label>
+        </div>
+
+        <button id="submitQuiz">Submit Quiz</button>
+
+        <div id="message" style="display: none; padding: 10px; color: #fff;"></div>
+    </div>
+
+    <script>
+        const totalQuestions = document.querySelectorAll('.question').length;
+        let answeredQuestions = 0;
+
+        document.querySelectorAll('input[type="radio"]').forEach((input) => {
+            input.addEventListener('change', () => {
+                answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+                const percentage = (answeredQuestions / totalQuestions) * 100;
+                document.getElementById('progressBar').style.width = `${percentage}%`;
+            });
+        });
+
+        function checkQuizCompletion(event) {
+            answeredQuestions = document.querySelectorAll('input[type="radio"]:checked').length;
+
+            if (answeredQuestions < totalQuestions) {
+                event.preventDefault(); 
+                alert("Please answer all questions before submitting.");
+                return;
+            }
+
+            const correctAnswers = {
+                q1: "Amur Leopard",
+                q2: "Deforestation",
+                q3: "WWF",
+                q4: "Illegal Wildlife Trade",
+                q5: "Sea Turtle",
+                q6: "All of the Above",
+                q7: "Bald Eagle",
+                q8: "International Union for Conservation of Nature",
+                q9: "Endangered",
+                q10: "Rhino"
+            };
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+
+            for (let i = 1; i <= totalQuestions; i++) {
+                const userAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (userAnswer && userAnswer.value === correctAnswers[`q${i}`]) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                    const correctAnswer = correctAnswers[`q${i}`];
+                    const questionElement = document.getElementById(`question${i}`);
+                    if (!questionElement.querySelector('.correct-answer')) {
+                        const answerMessage = document.createElement("p");
+                        answerMessage.style.color = "red";
+                        answerMessage.classList.add('correct-answer');
+                        answerMessage.innerHTML = `The correct answer is: <strong>${correctAnswer}</strong>`;
+                        questionElement.appendChild(answerMessage);
+                    }
+                }
+            }
+
+            const messageElement = document.getElementById('message');
+            messageElement.style.display = 'block';
+            messageElement.textContent = `You got ${correctCount} out of ${totalQuestions} correct!`;
+
+
+            const correctPercentage = (correctCount / totalQuestions) * 100;
+            const incorrectPercentage = 100 - correctPercentage;
+
+ 
+            document.getElementById('progressBar').style.background = `linear-gradient(to right, #4CAF50 ${correctPercentage}%, #FC342A ${correctPercentage}%)`;
+            document.getElementById('progressBar').style.width = '100%';
+
+            if (correctCount === totalQuestions) {
+                messageElement.style.backgroundColor = '#4CAF50'; 
+            } else {
+                messageElement.style.backgroundColor = '#FC342A';
+            }
+
+
+            let tooltipCorrect = document.createElement('div');
+            tooltipCorrect.className = 'tooltip correct';
+            tooltipCorrect.textContent = `Correctly answered: ${correctPercentage.toFixed(2)}%`;
+            document.getElementById('progressBar').appendChild(tooltipCorrect);
+
+            let tooltipIncorrect = document.createElement('div');
+            tooltipIncorrect.className = 'tooltip incorrect';
+            tooltipIncorrect.textContent = `Incorrectly answered: ${incorrectPercentage.toFixed(2)}%`;
+            document.getElementById('progressBar').appendChild(tooltipIncorrect);
+
+
+            document.getElementById('progressBar').addEventListener('mouseover', (event) => {
+                if (event.offsetX <= correctPercentage / 100 * document.getElementById('progressBar').offsetWidth) {
+                    tooltipCorrect.style.display = 'block';
+                    tooltipIncorrect.style.display = 'none';
+                } else {
+                    tooltipIncorrect.style.display = 'block';
+                    tooltipCorrect.style.display = 'none';
+                }
+            });
+
+            document.getElementById('progressBar').addEventListener('mouseout', () => {
+                tooltipCorrect.style.display = 'none';
+                tooltipIncorrect.style.display = 'none';
+            });
+
+
+            document.querySelectorAll('input[type="radio"]').forEach((input) => {
+                input.disabled = true;
+            });
+
+
+            document.getElementById('submitQuiz').disabled = true;
+            document.getElementById('submitQuiz').style.backgroundColor = '#9e9e9e';
+        }
+
+        document.getElementById('submitQuiz').addEventListener('click', (event) => {
+            checkQuizCompletion(event);
+        
+        });
+
+    </script>
+    <div class="arrow-container">
+        <a href="index.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guardian of the wildlife</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        
+
+        html {
+            scroll-behavior: smooth;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            scroll-behavior: smooth;
+            line-height: 1.6;
+        }
+
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            margin: 0; 
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 80px;
+        }
+
+        nav ul li {
+            position: relative;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 700;
+            transition: color 0.3s ease-in-out;
+            font-size: 1.5em;
+        }
+
+        nav ul li a:hover {
+            color: #e94e1b;
+        }
+
+
+        nav ul li .dropbtn {
+            cursor: pointer;
+        }
+
+        nav ul li .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        nav ul li .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        nav ul li .dropdown-content a:hover {
+            background-color: #e94e1b;
+            color: #fff;
+        }
+
+        nav ul li.dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+
+        main {
+            padding-top: 69px; 
+        }
+
+
+        .hero {
+    background-image: url('image.png');
+    background-size: 800% 100%; /* Scale the image to 50% of the container width */
+    background-position: 0 0;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    filter: brightness(60%);
+    margin: 0;
+    animation: scrollLeft 60s linear infinite;
+    background-repeat: repeat-x; /* Repeat the background image horizontally */
+}
+
+/* Define keyframes for smooth, seamless scrolling */
+@keyframes scrollLeft {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 200% 0; /* Scroll the background to the left by 200% (since it's duplicated) */
+    }
+}
+
+
+
+
+
+        .hero-content {
+            color: #ff0000;
+            padding: 20px 40px;
+            border-radius: 10px;
+        }
+
+        .hero-content h1 {
+            font-size: 14em;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+
+        .services {
+            display: flex;
+            justify-content: space-around;
+            padding: 40px 20px;
+            background-color: #fff;
+            margin: 40px 20px;
+            flex-wrap: wrap;
+        }
+
+        .service {
+            text-align: center;
+            width: 30%;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            border-radius: 10px; 
+        }
+
+        .service h3 {
+            color: #e94e1b;
+            margin-bottom: 15px;
+        }
+
+        .service p {
+            color: #333;
+        }
+
+        .service img {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+
+        .service a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .service:hover {
+            background-color: #e0e0e0;
+            transform: translateY(-10px);
+        }
+
+
+        footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+        }
+
+        footer p {
+            margin: 5px 0;
+            color: #666;
+        }
+
+        footer a {
+            color: #333;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            color: #e94e1b;
+        }
+        a{
+            text-decoration: none;
+        }
+        /* Species of the Day Layout */
+.species-section {
+    padding: 50px 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+.species-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+@media (min-width: 768px) {
+    .species-layout {
+        flex-direction: row;
+    }
+}
+
+.img-section {
+    flex-basis: 35%;
+    margin-top: 10px;
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+}
+
+.brief-section {
+    flex-basis: 30%;
+    text-align: left;
+}
+
+.details-section {
+    flex-basis: 30%;
+    text-align: left;
+}
+
+.species-image {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.learn-more {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #ff7f50;
+    color: white;
+    font-size: 1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.learn-more:hover {
+    background-color: #e94e1b;
+}
+
+.details-content {
+    display: none;
+    text-align: left;
+}
+
+.details-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.species-section h3 {
+    font-size: 2em;
+    color: #e94e1b;
+    margin-bottom: 20px;
+}
+
+.details-section h4 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.brief-section p, .details-section p {
+    font-size: 1.2em;
+    color: #555;
+    line-height: 1.6;
+}
+#countdown-section {
+    background-color: #f8f9fa; /* Light gray matching the website background */
+    color: #343a40; /* Darker gray for subtle contrast */
+    padding: 50px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 40px 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05); /* Softer shadow */
+}
+
+#countdown-section h2 {
+    font-size: 2.5em;
+    color: #ff7f50; /* Matching orange color from your "Explore" button */
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+}
+
+    .countdown-wrapper {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    #countdown-timer {
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+        max-width: 800px;
+    }
+
+ 
+.time-box {
+    background: #fff; /* Light background for the time boxes */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    border: 1px solid #ddd; /* Soft border */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Very light shadow */
+    flex-basis: 20%;
+    text-align: center;
+}
+
+    .time-box .time {
+        font-size: 3em;
+        font-weight: bold;
+        color: #ff7f50;
+        display: block;
+        margin-bottom: 10px;
+        animation: pulse 1s infinite;
+    }
+
+    .label {
+        font-size: 1.2em;
+        color: #343a40;
+        text-transform: uppercase;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+        .time-box {
+            flex-basis: 45%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .time-box {
+            flex-basis: 90%;
+        }
+    }
+    #endangered-species-count {
+    padding: 50px 20px; /* Adjust the padding for spacing */
+    margin: 40px 20px; /* Space around the section */
+    text-align: center;
+}
+
+.endangered-count-container {
+    position: relative;
+    color: #e94e1b; /* Use a vibrant color for the text */
+    font-size: 3em; /* Large font size for emphasis */
+    font-weight: bold;
+    animation: fadeIn 1s ease; /* Optional: add a fade-in animation */
+}
+
+.endangered-text {
+    font-size: 1.2em; /* Smaller font size for the description */
+    color: #333; /* Darker color for contrast */
+    margin-top: 10px; /* Spacing above the text */
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Optional: Add a gradient background to enhance the section */
+#endangered-species-count {
+    background: linear-gradient(to right, rgba(233, 78, 27, 0.8), rgba(255, 255, 255, 0.3)); /* Gradient effect */
+    border-radius: 10px; /* Slight rounding of corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+}
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.addEventListener('beforeunload', function() {
+                sessionStorage.setItem('scrollPosition', window.scrollY);
+            });
+
+            window.addEventListener('load', function() {
+                const scrollPosition = sessionStorage.getItem('scrollPosition');
+                if (scrollPosition !== null) {
+                    window.scrollTo(0, parseInt(scrollPosition, 10));
+                    sessionStorage.removeItem('scrollPosition');
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="Aboutus.html">About Us</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Explore</a>
+                    <div class="dropdown-content">
+                        <a href="species.html">Endangered Species</a>
+                        <a href="reason.html">Reason</a>
+                        <a href="solution.html">Solution</a>
+                        <a href="quiz.html">Fun Quizzes</a>
+                        <a href="timeline.html">Timeline</a>
+                        <a href="news.html">News</a>
+                    </div>
+                </li>
+                <li><a href="comment_section.html">Comment section</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>DANGER!</h1>
+            </div>
+        </section>
+        <section id="endangered-species-count">
+            <div class="endangered-count-container">
+                <p class="endangered-text">There are around</p>
+                <p class="endangered-number">
+                    <strong id="endangered-count-value">0</strong>
+                </p>
+                <p class="endangered-text">endangered species worldwide</p>
+            </div>
+        </section>
+        
+        
+        
+        <section id="species-of-the-day" class="species-section">
+            <h3>Species of the Day</h3>
+            <div class="species-layout">
+                <div class="img-section">
+                    <img id="species-img" src="" alt="Species of the Day" class="species-image">
+                    <h4 id="species-name"></h4> <!-- Move this here -->
+                </div>
+                <div class="brief-section">
+                    <p id="species-description"></p>
+                    <button class="learn-more">Learn More</button>
+                </div>
+                <div class="details-section">
+                    <div class="details-content">
+                        <p id="species-details" class="species-details"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="countdown-section">
+            <div class="countdown-wrapper">
+                <h2>Countdown to World Wildlife Day</h2>
+                <div id="countdown-timer">
+                    <div class="time-box">
+                        <span id="days" class="time"></span>
+                        <span class="label">Days</span>
+                    </div>
+                    <div class="time-box">
+                        <span id="hours" class="time"></span>
+                        <span class="label">Hours</span>
+                    </div>
+                    <div class="time-box">
+                        <span id="minutes" class="time"></span>
+                        <span class="label">Minutes</span>
+                    </div>
+                    <div class="time-box">
+                        <span id="seconds" class="time"></span>
+                        <span class="label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="services">
+            <a href="species.html" class="service">
+                <img src="originalImage.png" alt="Icon 1">
+                <h3>Endangered species</h3>
+                <p>Recognize the species that are rapidly approaching extinction.</p>
+            </a>
+            <a href="reason.html" class="service">
+                <img src="XDesign.png" alt="Icon 2">
+                <h3>Reason</h3>
+                <p>Understand the factors driving these species to the brink of extinction.</p>
+            </a>
+            <a href="solution.html" class="service">
+                <img src="XDesign (1).png" alt="Icon 3">
+                <h3>Solution</h3>
+                <p>Explore ways to save and protect these endangered species.</p>
+            </a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Guardians of the Wildlife. All rights reserved.</p>
+        <p>
+            <a href="#">Contact Us</a> |
+            <a href="#">Privacy Policy</a>
+        </p>
+    </footer>
+
+<script>
+    // Counting animation when the section comes into view
+let hasAnimated = false; // To ensure it runs only once
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true; // Prevent further animations
+
+            let count = 0;
+            const targetCount = 42100; // Set your target number here
+            const duration = 2000; // Duration in milliseconds
+            const stepTime = Math.abs(Math.floor(duration / targetCount)); // Time per step
+
+            const counterInterval = setInterval(() => {
+                count += 50; // Increment the counter
+                document.querySelector("#endangered-count-value").textContent = count;
+
+                if (count >= targetCount) {
+                    clearInterval(counterInterval); // Stop the counter when the target is reached
+                }
+            }, stepTime);
+        }
+    });
+});
+
+// Start observing the section
+const countSection = document.querySelector("#endangered-species-count");
+observer.observe(countSection);
+
+document.addEventListener('DOMContentLoaded', function () {
+    let currentSpecies; // Declare a variable to hold the current species
+
+    window.addEventListener('beforeunload', function () {
+        sessionStorage.setItem('scrollPosition', window.scrollY);
+    });
+
+    window.addEventListener('load', function () {
+        const scrollPosition = sessionStorage.getItem('scrollPosition');
+        if (scrollPosition !== null) {
+            window.scrollTo(0, parseInt(scrollPosition, 10));
+            sessionStorage.removeItem('scrollPosition');
+        }
+
+        // Set up the Learn More button click event
+        const learnMoreButton = document.querySelector('.learn-more');
+        learnMoreButton.addEventListener('click', toggleInfo);
+
+        // Update the species of the day
+        updateSpeciesOfTheDay();
+    });
+
+    const speciesList = [
+    {
+        name: "Vaquita",
+        scientificName: "Phocoena sinus",
+        status: "Critically Endangered",
+        habitat: "Northern Gulf of California",
+        threats: "Bycatch in illegal fishing nets",
+        info: "The vaquita is the world's rarest marine mammal, with fewer than 20 individuals left.",
+        img: "Phocoena sinus.jpg"
+    },
+    {
+        name: "Amur Leopard",
+        scientificName: "Panthera pardus orientalis",
+        status: "Critically Endangered",
+        habitat: "Temperate forests of the Russian Far East and China",
+        threats: "Poaching and habitat loss",
+        info: "Amur leopards are the rarest subspecies of leopards, with an estimated 100 individuals left.",
+        img: "Panthera pardus orientalis.jpg"
+    },
+    {
+        name: "Sumatran Orangutan",
+        scientificName: "Pongo abelii",
+        status: "Critically Endangered",
+        habitat: "Rainforests of Sumatra, Indonesia",
+        threats: "Deforestation and illegal wildlife trade",
+        info: "The Sumatran orangutan is one of the two species of orangutans, and is severely threatened by habitat loss.",
+        img: "Pongo abelii.jpg"
+    },
+    {
+        name: "Hawksbill Sea Turtle",
+        scientificName: "Eretmochelys imbricata",
+        status: "Critically Endangered",
+        habitat: "Tropical coral reefs",
+        threats: "Illegal trade in shells and habitat degradation",
+        info: "Hawksbill turtles are prized for their beautifully patterned shells, leading to overexploitation.",
+        img: "Eretmochelys imbricata.jpg"
+    },
+    {
+        name: "Javan Rhino",
+        scientificName: "Rhinoceros sondaicus",
+        status: "Critically Endangered",
+        habitat: "Tropical forests of Java, Indonesia",
+        threats: "Poaching and habitat loss",
+        info: "Fewer than 80 Javan rhinos remain, all confined to a single national park.",
+        img: "Rhinoceros sondaicus.jpg"
+    },
+    {
+        name: "Iberian Lynx",
+        scientificName: "Lynx pardinus",
+        status: "Endangered",
+        habitat: "Mediterranean forests and scrublands in Spain and Portugal",
+        threats: "Habitat loss and declining prey populations",
+        info: "The Iberian lynx is the world's most endangered cat species, though conservation efforts have helped increase its population.",
+        img: "Lynx pardinus.webp"
+    },
+    {
+        name: "Snow Leopard",
+        scientificName: "Panthera uncia",
+        status: "Vulnerable",
+        habitat: "Mountain ranges of Central Asia",
+        threats: "Poaching and habitat fragmentation",
+        info: "Snow leopards are elusive big cats adapted to live in high-altitude environments.",
+        img: "Panthera uncia.webp"
+    },
+    {
+        name: "Mountain Gorilla",
+        scientificName: "Gorilla beringei beringei",
+        status: "Endangered",
+        habitat: "Mountain forests of Central Africa",
+        threats: "Poaching, disease, and habitat loss",
+        info: "Mountain gorillas are one of the two subspecies of eastern gorillas, with populations slowly recovering due to conservation efforts.",
+        img: "Gorilla beringei beringei.jpg"
+    },
+    {
+        name: "Saola",
+        scientificName: "Pseudoryx nghetinhensis",
+        status: "Critically Endangered",
+        habitat: "Annamite Mountains of Laos and Vietnam",
+        threats: "Poaching and habitat loss",
+        info: "Often referred to as the 'Asian unicorn,' the saola is one of the world's rarest mammals, discovered only in 1992.",
+        img: "Pseudoryx nghetinhensis.jpg"
+    },
+    {
+        name: "Yangtze Giant Softshell Turtle",
+        scientificName: "Rafetus swinhoei",
+        status: "Critically Endangered",
+        habitat: "Yangtze River and its tributaries",
+        threats: "Habitat destruction and over-exploitation",
+        info: "There are only a few Yangtze giant softshell turtles left, making it one of the rarest turtle species in the world.",
+        img: "Rafetus swinhoei.webp"
+    },
+    {
+        name: "Blue Whale",
+        scientificName: "Balaenoptera musculus",
+        status: "Endangered",
+        habitat: "Oceans worldwide",
+        threats: "Ship strikes, entanglement in fishing gear, and climate change",
+        info: "The blue whale is the largest animal ever to have lived on Earth, but its population remains threatened despite international protection.",
+        img: "Balaenoptera musculus.jpg"
+    },
+    {
+        name: "Siberian Tiger",
+        scientificName: "Panthera tigris altaica",
+        status: "Endangered",
+        habitat: "Temperate forests in Russia's Far East",
+        threats: "Poaching and habitat destruction",
+        info: "Siberian tigers are the largest tiger subspecies, and ongoing conservation efforts aim to protect them from extinction.",
+        img: "Panthera tigris altacia.jpg"
+    },
+    {
+        name: "Galápagos Penguin",
+        scientificName: "Spheniscus mendiculus",
+        status: "Endangered",
+        habitat: "Galápagos Islands",
+        threats: "Climate change, pollution, and overfishing",
+        info: "The Galápagos penguin is the only penguin species to live north of the equator, but its population is small and vulnerable.",
+        img: "Spheniscus mendiculus.jpg"
+    },
+    {
+        name: "Axolotl",
+        scientificName: "Ambystoma mexicanum",
+        status: "Critically Endangered",
+        habitat: "Lakes and canals of Mexico City",
+        threats: "Habitat loss and pollution",
+        info: "Axolotls are unique salamanders that remain in their larval stage throughout their lives and are often used in scientific research for their regenerative abilities.",
+        img: "Ambystoma mexicanum.webp"
+    },
+    {
+        name: "Scimitar-horned Oryx",
+        scientificName: "Oryx dammah",
+        status: "Extinct in the Wild",
+        habitat: "Saharan desert and semi-deserts",
+        threats: "Overhunting and habitat destruction",
+        info: "Once common in North Africa, the scimitar-horned oryx is now extinct in the wild, though reintroduction efforts are underway.",
+        img: "Oryx dammah.jpg"
+    },
+    {
+        name: "Red Panda",
+        scientificName: "Ailurus fulgens",
+        status: "Endangered",
+        habitat: "Temperate forests of the Himalayas",
+        threats: "Habitat loss and poaching",
+        info: "Red pandas are small, tree-dwelling mammals that resemble raccoons more than pandas and are threatened by deforestation.",
+        img: "Ailurus fulgens.jpg"
+    },
+    {
+        name: "Madagascar Fish Eagle",
+        scientificName: "Haliaeetus vociferoides",
+        status: "Critically Endangered",
+        habitat: "Coastal areas and lakes of Madagascar",
+        threats: "Habitat loss and overfishing",
+        info: "The Madagascar fish eagle is one of the world's rarest birds of prey, found only in Madagascar.",
+        img: "Haliaetus vociferoides.webp"
+    },
+    {
+        name: "Okapi",
+        scientificName: "Okapia johnstoni",
+        status: "Endangered",
+        habitat: "Tropical forests of the Democratic Republic of Congo",
+        threats: "Habitat loss and poaching",
+        info: "The okapi is a close relative of the giraffe, with zebra-like stripes on its legs and a reclusive nature.",
+        img: "Okapia johnstoni.webp"
+    },
+    {
+        name: "Indian Vulture",
+        scientificName: "Gyps indicus",
+        status: "Critically Endangered",
+        habitat: "Open country and semi-arid areas of the Indian subcontinent",
+        threats: "Poisoning from veterinary drugs",
+        info: "Indian vultures have faced a rapid decline due to the widespread use of diclofenac, a drug toxic to the species.",
+        img: "Gyps indicus.jpg"
+    },
+    {
+        name: "Addax",
+        scientificName: "Addax nasomaculatus",
+        status: "Critically Endangered",
+        habitat: "Saharan deserts",
+        threats: "Poaching and habitat destruction",
+        info: "The addax is a desert antelope adapted to harsh environments, but its numbers have dwindled due to illegal hunting.",
+        img: "Addax nasomaculatus.webp"
+    },
+    {
+        name: "Nubian Giraffe",
+        scientificName: "Giraffa camelopardalis camelopardalis",
+        status: "Vulnerable",
+        habitat: "Savannas and woodlands of northeastern Africa",
+        threats: "Habitat loss and poaching",
+        info: "The Nubian giraffe is a subspecies of giraffe found in East Africa, and its population is declining.",
+        img: "Giraffa camelopardalis camelopardalis.webp"
+    },
+    {
+        name: "Forest Elephant",
+        scientificName: "Loxodonta cyclotis",
+        status: "Critically Endangered",
+        habitat: "Dense forests of Central and West Africa",
+        threats: "Poaching and habitat fragmentation",
+        info: "Forest elephants are smaller than their savannah counterparts and play a critical role in their ecosystem by dispersing seeds.",
+        img: "Loxodonta cyclotis.webp"
+    },
+    {
+        name: "Borneo Pygmy Elephant",
+        scientificName: "Elephas maximus borneensis",
+        status: "Endangered",
+        habitat: "Tropical rainforests of Borneo",
+        threats: "Deforestation and human-elephant conflict",
+        info: "Borneo pygmy elephants are a smaller subspecies of the Asian elephant and face severe habitat loss.",
+        img: "Elephas maximus borneensis.webp"
+    },
+    {
+        name: "Northern White Rhino",
+        scientificName: "Ceratotherium simum cottoni",
+        status: "Critically Endangered",
+        habitat: "Grasslands and savannas in East Africa",
+        threats: "Poaching and habitat loss",
+        info: "Only two northern white rhinos remain, both females, making them functionally extinct.",
+        img: "Ceratotherium simum cottoni.jpg"
+    },
+    {
+        name: "Kakapo",
+        scientificName: "Strigops habroptilus",
+        status: "Critically Endangered",
+        habitat: "New Zealand forests",
+        threats: "Predation by introduced species and habitat loss",
+        info: "The kakapo is a flightless parrot and one of the world's rarest birds.",
+        img: "Strigops habroptilus.jpg"
+    },
+    {
+        name: "Sunda Pangolin",
+        scientificName: "Manis javanica",
+        status: "Critically Endangered",
+        habitat: "Tropical forests and grasslands in Southeast Asia",
+        threats: "Illegal wildlife trade and habitat loss",
+        info: "Sunda pangolins are heavily trafficked for their scales and meat.",
+        img: "Manis javanica.jpg"
+    },
+    {
+        name: "Spoon-billed Sandpiper",
+        scientificName: "Calidris pygmaea",
+        status: "Critically Endangered",
+        habitat: "Coastal mudflats in Asia",
+        threats: "Habitat loss and climate change",
+        info: "The spoon-billed sandpiper has a distinctive spoon-shaped bill and is facing extinction.",
+        img: "Calidris pygmaea.jpg"
+    },
+    {
+        name: "Kakawahie",
+        scientificName: "Paroreomyza flammea",
+        status: "Extinct",
+        habitat: "Hawaiian rainforests",
+        threats: "Habitat loss and introduced predators",
+        info: "The kakawahie was native to Hawaii but is now extinct due to human activities.",
+        img: "Paroreomyza flammea.jpg"
+    },
+    {
+        name: "Northern Spotted Owl",
+        scientificName: "Strix occidentalis caurina",
+        status: "Threatened",
+        habitat: "Old-growth forests in the western United States",
+        threats: "Habitat loss and competition from the barred owl",
+        info: "The northern spotted owl is a symbol of conservation efforts in the Pacific Northwest.",
+        img: "Strix occidentalis caurina.jpg"
+    },
+    {
+        name: "Florida Manatee",
+        scientificName: "Trichechus manatus latirostris",
+        status: "Threatened",
+        habitat: "Coastal waters of Florida and the Caribbean",
+        threats: "Boat strikes and habitat loss",
+        info: "Florida manatees are herbivorous marine mammals and are vulnerable to human activities.",
+        img: "Trichechus manatus latirostris.jpg"
+    },
+    {
+        name: "Seychelles Black Parrot",
+        scientificName: "Coracina indosinensis",
+        status: "Endangered",
+        habitat: "Tropical forests of Seychelles",
+        threats: "Habitat loss and invasive species",
+        info: "The Seychelles black parrot is one of the rarest parrots in the world.",
+        img: "Coracina indosinensis.jpg"
+    },
+    {
+        name: "Pinta Island Tortoise",
+        scientificName: "Chelonoidis Abingdon",
+        status: "Extinct",
+        habitat: "Pinta Island, Galápagos",
+        threats: "Overharvesting and introduced species",
+        info: "The Pinta Island tortoise became extinct in the 20th century with the death of Lonesome George.",
+        img: "Chelonoidis Abingdon.jpg"
+    },
+    {
+        name: "Greater Sage-Grouse",
+        scientificName: "Centrocercus urophasianus",
+        status: "Near Threatened",
+        habitat: "Sagebrush ecosystems in western North America",
+        threats: "Habitat loss and fragmentation",
+        info: "The greater sage-grouse is known for its elaborate mating displays.",
+        img: "Centrocercus urophasianus.webp"
+    },
+    {
+        name: "Eastern Lowland Gorilla",
+        scientificName: "Gorilla beringei graueri",
+        status: "Endangered",
+        habitat: "Rainforests of the Democratic Republic of Congo",
+        threats: "Poaching and habitat destruction",
+        info: "The eastern lowland gorilla is the largest subspecies of gorilla.",
+        img: "Gorilla beringei graueri.jpg"
+    },
+    {
+        name: "Philippine Eagle",
+        scientificName: "Pithecophaga jefferyi",
+        status: "Critically Endangered",
+        habitat: "Rainforests of the Philippines",
+        threats: "Deforestation and hunting",
+        info: "The Philippine eagle is one of the largest and most powerful birds of prey.",
+        img: "Pithecophaga jefferyi.webp"
+    },
+    {
+        name: "Spix's Macaw",
+        scientificName: "Cyanopsitta spixii",
+        status: "Critically Endangered (Possibly Extinct in the Wild)",
+        habitat: "Brazilian gallery forests",
+        threats: "Habitat loss and illegal trapping",
+        info: "Spix's macaw is likely extinct in the wild due to habitat destruction and poaching.",
+        img: "Cyanopsitta spixii.jpg"
+    },
+    {
+        name: "Tigers",
+        scientificName: "Panthera tigris",
+        status: "Endangered",
+        habitat: "Various habitats across Asia",
+        threats: "Poaching and habitat loss",
+        info: "Tigers are the largest wild cats and are endangered due to hunting and habitat destruction.",
+        img: "Panthera tigris.jpg"
+    },
+    {
+        name: "Green Sea Turtle",
+        scientificName: "Chelonia mydas",
+        status: "Endangered",
+        habitat: "Tropical and subtropical oceans",
+        threats: "Poaching, habitat loss, and climate change",
+        info: "Green sea turtles are known for their large size and are vital to marine ecosystems.",
+        img: "Chelonia mydas.jpg"
+    },
+    {
+        name: "Chaco Tortoise",
+        scientificName: "Chelonoidis chacoensis",
+        status: "Vulnerable",
+        habitat: "Dry forests and scrubland in Paraguay and Argentina",
+        threats: "Habitat destruction and illegal trade",
+        info: "Chaco tortoises are known for their unique adaptation to arid environments.",
+        img: "Chelonoidis chacoensis.jpg"
+    },
+    {
+        name: "Red Wolf",
+        scientificName: "Canis rufus",
+        status: "Critically Endangered",
+        habitat: "Forest and swamp habitats in the southeastern United States",
+        threats: "Habitat loss and hybridization with coyotes",
+        info: "The red wolf is one of the most endangered canids in North America.",
+        img: "Canis rufus.jpg"
+    },
+    {
+        name: "Wild Bactrian Camel",
+        scientificName: "Camelus ferus",
+        status: "Critically Endangered",
+        habitat: "Desert regions in China and Mongolia",
+        threats: "Habitat loss and competition with domestic camels",
+        info: "Wild Bactrian camels are adapted to live in harsh desert conditions.",
+        img: "Camelus ferus.jpg"
+    },
+    {
+        name: "Bramble Cay Melomys",
+        scientificName: "Melomys rubicola",
+        status: "Extinct",
+        habitat: "Bramble Cay, Australia",
+        threats: "Climate change and habitat loss",
+        info: "The Bramble Cay melomys is considered the first mammal extinction due to climate change.",
+        img: "Melomys rubicola.jpg"
+    },
+    {
+        name: "Chinese Giant Salamander",
+        scientificName: "Andrias davidianus",
+        status: "Critically Endangered",
+        habitat: "Rivers and lakes in China",
+        threats: "Overharvesting and habitat loss",
+        info: "The Chinese giant salamander is the largest amphibian in the world.",
+        img: "Andrias davidianus.jpg"
+    },
+    {
+        name: "Yangtze River Dolphin",
+        scientificName: "Lipotes vexillifer",
+        status: "Critically Endangered",
+        habitat: "Yangtze River in China",
+        threats: "Pollution and habitat degradation",
+        info: "The Yangtze river dolphin, also known as the baiji, is possibly extinct in the wild.",
+        img: "Lipotes vexillifer.webp"
+    },
+    {
+        name: "Black-footed Ferret",
+        scientificName: "Mustela nigripes",
+        status: "Endangered",
+        habitat: "Grasslands of North America",
+        threats: "Habitat loss and disease",
+        info: "The black-footed ferret is one of North America's most endangered mammals.",
+        img: "Mustela nigripes.jpg"
+    }
+
+    ];
+
+    function updateSpeciesOfTheDay() {
+        const today = new Date();
+        const dayIndex = today.getDate() % speciesList.length; // Wrap around if the day exceeds list length
+        currentSpecies = speciesList[dayIndex]; // Store the species in a global variable
+
+        // Update the species information on the page
+        document.getElementById("species-name").textContent = currentSpecies.name;
+        document.getElementById("species-description").textContent = currentSpecies.info;
+        document.getElementById("species-img").src = currentSpecies.img;
+    }
+
+    function toggleInfo() {
+        const detailsSection = document.querySelector('.details-content');
+        if (!detailsSection.classList.contains('active')) {
+            detailsSection.innerHTML = `
+                <h4>${currentSpecies.name} Details</h4>
+                <p><strong>Scientific Name:</strong> ${currentSpecies.scientificName}</p>
+                <p><strong>Status:</strong> ${currentSpecies.status}</p>
+                <p><strong>Habitat:</strong> ${currentSpecies.habitat}</p>
+                <p><strong>Threats:</strong> ${currentSpecies.threats}</p>
+            `;
+            detailsSection.classList.add('active');
+        } else {
+            detailsSection.classList.remove('active');
+        }
+    }
+});
+// Set the date for World Wildlife Day (March 3)
+let now = new Date();
+let eventDate = new Date(`March 3, ${now.getFullYear()} 00:00:00`).getTime();
+
+// Check if the event date has passed for the current year
+if (now.getTime() > eventDate) {
+    // If the event has passed, set the countdown to next year's event
+    eventDate = new Date(`March 3, ${now.getFullYear() + 1} 00:00:00`).getTime();
+}
+
+let countdown = setInterval(function () {
+    let currentTime = new Date().getTime();
+    let distance = eventDate - currentTime;
+
+    // Time calculations
+    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result
+    document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+    // If the countdown is over
+    if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById("countdown").innerHTML = "World Wildlife Day has arrived!";
+    }
+}, 1000);
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>South America</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #007BFF;
+            --secondary-color: #6C757D;
+            --light-color: #f4f4f4;
+            --dark-color: #333;
+            --border-radius: 10px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --transition-duration: 0.6s;
+            --font-family: 'Arial', sans-serif;
+            --card-width: 300px; 
+            --card-height: 400px; 
+            --card-padding: 15px;
+            --bottom-margin: 60px; 
+        }
+
+        body {
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 0;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .banner-img {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-bottom: 5px solid #ddd;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
+
+        .content-item {
+            width: var(--card-width);
+            height: var(--card-height);
+            perspective: 1000px;
+            margin: 10px;
+            margin-bottom: var(--bottom-margin);
+        }
+
+        .content-item-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform var(--transition-duration) ease;
+            transform-style: preserve-3d;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        .content-front,
+        .content-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: var(--card-padding); 
+        }
+
+        .content-front {
+            background-color: #fff;
+        }
+
+        .content-front img {
+            width: 300px;
+            height: 150px; 
+            border-bottom: 1px solid #ddd;
+        }
+
+        .content-front p {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
+            text-align: left;
+        }
+
+        .content-front p strong {
+            color: var(--dark-color);
+            font-weight: bold;
+        }
+
+        .content-back {
+            background-color: var(--light-color);
+            transform: rotateY(180deg);
+        }
+
+        .content-back img {
+            width: 100%;
+            max-height: 150px; 
+            object-fit: cover;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 10px;
+        }
+
+        .content-back p {
+            font-size: 0.85em;
+            color: var(--dark-color);
+        }
+
+        .cta-button {
+            display: inline-block;
+            margin: 10px auto;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: #fff;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .content-item {
+                width: calc(50% - 20px);
+                height: auto; 
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-item {
+                width: 100%;
+                height: auto;
+            }
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            margin-left: 100px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+        #discussion-section {
+            width: 80%; 
+            margin: 20px auto; 
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+        }
+
+
+        #discussion-section h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        #comment-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        #name-input,
+        #comment-input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        #comment-input {
+            height: 50px;
+            resize: none;
+        }
+
+        #post-comment {
+            align-self: flex-end;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        #post-comment:hover {
+            background-color: #0056b3;
+        }
+
+        .comment {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+        .comment:hover {
+            background-color: #f9f9f9;
+        }
+
+        .comment-content {
+            margin-left: 10px;
+            flex: 1;
+            position: relative;
+        }
+
+        .comment-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .comment-text {
+            margin: 0;
+            font-size: 16px;
+            display: block;
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word; 
+            white-space: normal; 
+            max-width: 100%; 
+        }
+
+        .timestamp {
+            font-style: italic;
+            color: #999;
+        }
+
+        .edited {
+            font-style: italic;
+            color: #999;
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+        }
+
+        .actions {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .actions button {
+            background: none;
+            border: none;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .actions button:hover {
+            color: #0056b3;
+        }
+
+        .actions button .fa {
+            font-size: 16px;
+        }
+
+        .actions button:hover .fa {
+            color: darkgray;
+        }
+
+        .actions button:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .reply-form {
+            display: none;
+            margin-top: 10px;
+            padding-left: 50px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            height: 60px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 14px;
+            resize: none;
+        }
+
+        .reply-form button {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reply-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .reply {
+            margin-left: 50px;
+            margin-top: 10px;
+        }
+
+        .like-button.active .fa-thumbs-up,
+        .dislike-button.active .fa-thumbs-down {
+            color: red;
+        }
+        .statistics-button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .statistics-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Header-image-Peru-Machu-Pic-2000-800.jpg" alt="Panorama of Antarctica" class="banner-img">
+    </header>
+
+    <section class="content">
+        <div class="content-item">
+            <div class="content-item-inner">
+                <div class="content-front">
+                    <img src="glass_frog.jpg" alt="Glass Frog">
+                    <p><strong>Species Overview:</strong><br>
+                       Common Name: Glass Frog<br>
+                       Scientific Name: <i>Centrolenidae</i><br>
+                       Region: South America<br>
+                       Physical Description: A small frog with translucent skin, allowing visibility of internal organs.
+                    </p>
+                    <a class="cta-button" onclick="flipCard(this)">Learn More</a>
+                </div>
+       
+                <div class="content-back">
+                    <h2>Glass Frog</h2>
+                    <p><strong>Scientific Name:</strong> <i>Centrolenidae</i></p>
+                    <p><strong>Behavior and Ecology:</strong> Typically found near streams in rainforests, these frogs lay eggs on leaves overhanging water.</p>
+                    <p><strong>Conservation Status:</strong> Various species range from Least Concern to Critically Endangered due to habitat loss.</p>
+                    <p><strong>Interesting Facts:</strong> Their transparent bellies reveal their beating hearts and other organs.</p>
+                    <button class="statistics-button" onclick="location.href='Centrolenidae.html'">Statistics</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-item">
+            <div class="content-item-inner">
+                <div class="content-front">
+                    <img src="Brown_Titi_Monkey_(Callicebus_brunneus)_(3419492981).jpg" alt="Titi Monkey">
+                    <p><strong>Species Overview:</strong><br>
+                       Common Name: Titi Monkey<br>
+                       Scientific Name: <i>Plecturocebus</i><br>
+                       Region: South America<br>
+                       Physical Description: Small monkeys with long, bushy tails, often found in pairs or small family groups.
+                    </p>
+                    <a class="cta-button" onclick="flipCard(this)">Learn More</a>
+                </div>
+      
+                <div class="content-back">
+                    <h2>Titi Monkey</h2>
+                    <p><strong>Scientific Name:</strong> <i>Plecturocebus</i></p>
+                    <p><strong>Behavior and Ecology:</strong> They live in dense forests and are monogamous, with both parents caring for offspring.</p>
+                    <p><strong>Conservation Status:</strong> Varies by species, but habitat loss due to deforestation is a major threat.</p>
+                    <p><strong>Interesting Facts:</strong> Titi monkeys are known for their complex vocalizations and affectionate behavior towards mates.</p>
+                    <button class="statistics-button" onclick="location.href='Plecturocebus.html'">Statistics</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-item">
+            <div class="content-item-inner">
+        
+                <div class="content-front">
+                    <img src="piedtamarin.jpeg" alt="Pied Tamarin">
+                    <p><strong>Species Overview:</strong><br>
+                       Common Name: Pied Tamarin<br>
+                       Scientific Name: <i>Saguinus bicolor</i><br>
+                       Region: South America (Amazon rainforest)<br>
+                       Physical Description: Small primate with a distinctive black face and white coat.
+                    </p>
+                    <a class="cta-button" onclick="flipCard(this)">Learn More</a>
+                </div>
+        
+                <div class="content-back">
+                    <h2>Pied Tamarin</h2>
+                    <p><strong>Scientific Name:</strong> <i>Saguinus bicolor</i></p>
+                    <p><strong>Behavior and Ecology:</strong> Highly social primates living in groups; arboreal and primarily insectivorous.</p>
+                    <p><strong>Conservation Status:</strong> Endangered due to habitat fragmentation and competition with invasive species.</p>
+                    <p><strong>Interesting Facts:</strong> Pied Tamarins communicate through high-pitched vocalizations and are known for their territorial behavior.</p>
+                    <button class="statistics-button" onclick="location.href='Pied Tamarin.html'">Statistics</button>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+    <div id="discussion-section">
+        <h2>Comments</h2>
+        <div id="comment-form">
+            <input type="text" id="name-input" placeholder="Your name">
+            <textarea id="comment-input" placeholder="Add a comment..."></textarea>
+            <button id="post-comment">Comment</button>
+        </div>
+        <div id="comments-container"></div>
+    </div>
+    <script>
+        function flipCard(button) {
+            const card = button.closest('.content-item-inner');
+            card.classList.toggle('flipped');
+        }
+    </script>
+    <script>
+        document.getElementById('post-comment').addEventListener('click', function() {
+            const nameInput = document.getElementById('name-input');
+            const commentInput = document.getElementById('comment-input');
+            const username = nameInput.value.trim();
+            const commentText = commentInput.value.trim();
+            if (username !== '' && commentText !== '') {
+                addComment(username, commentText, new Date());
+                nameInput.value = '';
+                commentInput.value = '';
+            }
+        });
+
+        function addComment(username, text, timestamp, isReply = false, parentElement = null) {
+            const commentElement = document.createElement('div');
+            commentElement.className = isReply ? 'comment reply' : 'comment';
+
+            commentElement.innerHTML = `
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <strong>${username}</strong>
+                        <span class="timestamp" data-timestamp="${timestamp}">${timeSince(timestamp)} ago</span>
+                        <span class="edited" style="display: none;">Edited</span>
+                    </div>
+                    <p class="comment-text">${text}</p>
+                    <div class="actions">
+                        <button class="like-button" data-title="Like"><i class="fa fa-thumbs-up"></i> <span class="like-count">0</span></button>
+                        <button class="dislike-button" data-title="Dislike"><i class="fa fa-thumbs-down"></i></button>
+                        <button class="reply-button" data-title="Reply"><i class="fa fa-reply"></i> Reply</button>
+                        <button class="edit-button" data-title="Edit"><i class="fa fa-edit"></i> Edit</button>
+                        <button class="delete-button" data-title="Delete"><i class="fa fa-trash"></i> Delete</button>
+                    </div>
+                    <div class="reply-form">
+                        <textarea placeholder="Add a reply..."></textarea>
+                        <button class="post-reply">Reply</button>
+                        <button class="cancel-reply">Cancel</button>
+                    </div>
+                </div>
+            `;
+
+            if (isReply && parentElement) {
+                parentElement.querySelector('.comment-content').appendChild(commentElement);
+            } else {
+                document.getElementById('comments-container').appendChild(commentElement);
+            }
+
+            commentElement.querySelector('.like-button').addEventListener('click', function() {
+                toggleLikeDislike(commentElement, 'like');
+            });
+
+            commentElement.querySelector('.dislike-button').addEventListener('click', function() {
+                toggleLikeDislike(commentElement, 'dislike');
+            });
+
+            commentElement.querySelector('.reply-button').addEventListener('click', function() {
+                const replyForm = commentElement.querySelector('.reply-form');
+                replyForm.style.display = replyForm.style.display === 'block' ? 'none' : 'block';
+            });
+
+            commentElement.querySelector('.post-reply').addEventListener('click', function() {
+                const replyInput = commentElement.querySelector('.reply-form textarea');
+                const replyText = replyInput.value.trim();
+                if (replyText !== '') {
+                    addComment(username, replyText, new Date(), true, commentElement);
+                    replyInput.value = '';
+                    commentElement.querySelector('.reply-form').style.display = 'none';
+                }
+            });
+
+            document.querySelectorAll('.cancel-reply').forEach(button => {
+                button.addEventListener('click', function() {
+                    const replyForm = this.parentElement;
+                    replyForm.style.display = 'none';
+                });
+            });
+
+            commentElement.querySelector('.edit-button').addEventListener('click', function() {
+                const commentTextElement = commentElement.querySelector('.comment-text');
+                const newText = prompt('Edit your comment:', commentTextElement.textContent);
+                if (newText) {
+                    commentTextElement.textContent = newText;
+                    commentElement.querySelector('.edited').style.display = 'inline';
+                }
+            });
+
+            commentElement.querySelector('.delete-button').addEventListener('click', function() {
+                const confirmDelete = confirm('Are you sure you want to delete this comment?');
+                if (confirmDelete) {
+                    commentElement.remove();
+                }
+            });
+
+            updateTimestamps();
+        }
+
+        function toggleLikeDislike(commentElement, type) {
+            const likeButton = commentElement.querySelector('.like-button');
+            const dislikeButton = commentElement.querySelector('.dislike-button');
+            const likeCountSpan = likeButton.querySelector('.like-count');
+            const currentLikeCount = parseInt(likeCountSpan.textContent);
+
+            if (type === 'like') {
+                if (likeButton.classList.contains('active')) {
+
+                    likeButton.classList.remove('active');
+                    likeCountSpan.textContent = currentLikeCount - 1;
+                } else {
+      
+                    likeButton.classList.add('active');
+                    likeCountSpan.textContent = currentLikeCount + 1;
+                    dislikeButton.classList.remove('active');
+                    const dislikeCountSpan = dislikeButton.querySelector('.like-count');
+                    if (dislikeCountSpan) {
+                        dislikeCountSpan.textContent = '0';
+                    }
+                }
+            } else if (type === 'dislike') {
+                if (dislikeButton.classList.contains('active')) {
+
+                    dislikeButton.classList.remove('active');
+                    const dislikeCountSpan = dislikeButton.querySelector('.like-count');
+                    if (dislikeCountSpan) {
+                        dislikeCountSpan.textContent = '0';
+                    }
+                } else {
+
+                    dislikeButton.classList.add('active');
+                    if (likeButton.classList.contains('active')) {
+                        likeButton.classList.remove('active');
+                        likeCountSpan.textContent = currentLikeCount - 1;
+                    }
+                }
+            }
+        }
+
+
+        function updateTimestamps() {
+            const timestamps = document.querySelectorAll('.timestamp');
+            timestamps.forEach(function(timestampElement) {
+                const timestamp = new Date(timestampElement.getAttribute('data-timestamp'));
+                timestampElement.textContent = timeSince(timestamp) + ' ago';
+            });
+        }
+
+        function timeSince(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            let interval = Math.floor(seconds / 31536000);
+            if (interval >= 1) return interval + ' years';
+            interval = Math.floor(seconds / 2592000);
+            if (interval >= 1) return interval + ' months';
+            interval = Math.floor(seconds / 86400);
+            if (interval >= 1) return interval + ' days';
+            interval = Math.floor(seconds / 3600);
+            if (interval >= 1) return interval + ' hours';
+            interval = Math.floor(seconds / 60);
+            if (interval >= 1) return interval + ' minutes';
+            return Math.floor(seconds) + ' seconds';
+        }
+
+        setInterval(updateTimestamps, 60000);
+
+    </script>
+    <div class="arrow-container">
+        <a href="species.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+</body>
+</html>

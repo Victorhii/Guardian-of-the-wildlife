@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endangered Species News</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 40px 0 20px;
+        }
+        #newsContainer {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .article {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: #ecf0f1;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .article:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+        .article h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #2980b9;
+        }
+        .article a {
+            text-decoration: none;
+            color: inherit;
+        }
+        .article a:hover {
+            text-decoration: underline;
+        }
+        .article p {
+            margin: 5px 0;
+            color: #34495e;
+        }
+        #searchContainer {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #searchInput {
+            padding: 12px;
+            width: 70%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+        #searchInput:focus {
+            border-color: #2980b9;
+            outline: none;
+        }
+        #searchButton {
+            padding: 12px 20px;
+            border: none;
+            background-color: #2980b9;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        #searchButton:hover {
+            background-color: #1c5980;
+        }
+        .spinner {
+            display: none;
+            margin: 0 auto;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            #searchInput {
+                width: 60%;
+            }
+            #searchButton {
+                width: 30%;
+            }
+        }
+        @media (max-width: 480px) {
+            #searchInput {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            #searchButton {
+                width: 100%;
+                margin-left: 0;
+            }
+        }
+        .arrow-container {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .arrow {
+            width: 100px;
+            height: 75px;
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .arrow img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .arrow:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Latest News on Endangered Species</h1>
+    <div id="searchContainer">
+        <input type="text" id="searchInput" placeholder="Search articles..." />
+        <button id="searchButton">Search</button>
+    </div>
+    <div class="spinner" id="spinner">
+        <i class="fas fa-spinner fa-spin fa-3x"></i>
+    </div>
+    <div id="newsContainer">Loading news...</div>
+    <div class="arrow-container">
+        <a href="index.html">
+            <div class="arrow">
+                <img src="XDesign (1) copy.png" alt="Left Arrow">
+            </div>
+        </a>
+    </div>
+
+    <script>
+        const apiKey = 'dbb91a32eb95f60efdef5e0ec782b078'; // Replace with your GNews API key
+        const newsContainer = document.getElementById('newsContainer');
+        const spinner = document.getElementById('spinner');
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+
+        function fetchNews(query = 'endangered species') {
+            spinner.style.display = 'block'; // Show spinner
+            newsContainer.innerHTML = '';
+
+            fetch(`https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&token=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    spinner.style.display = 'none'; // Hide spinner
+
+                    if (data && data.articles && data.articles.length > 0) {
+                        data.articles.forEach(article => {
+                            const articleElement = document.createElement('div');
+                            articleElement.className = 'article';
+                            articleElement.innerHTML = `
+                                <h2><a href="${article.url}" target="_blank">${article.title}</a></h2>
+                                <p>${article.description}</p>
+                                <p><strong>Source:</strong> ${article.source.name} | <strong>Published at:</strong> ${new Date(article.publishedAt).toLocaleDateString()}</p>
+                            `;
+                            newsContainer.appendChild(articleElement);
+                        });
+                    } else {
+                        newsContainer.innerHTML = '<p>No articles found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching news:', error);
+                    newsContainer.innerHTML = '<p>Error fetching news. Please try again later.</p>';
+                    spinner.style.display = 'none'; // Hide spinner
+                });
+        }
+
+        // Fetch news on page load with the default query
+        window.onload = () => fetchNews();
+
+        // Search functionality
+        function handleSearch() {
+            const query = searchInput.value.trim();
+            fetchNews(query.length > 0 ? query : 'endangered species');
+        }
+
+        searchButton.addEventListener('click', handleSearch);
+
+        // Allow pressing "Enter" to search
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+</body>
+</html>
