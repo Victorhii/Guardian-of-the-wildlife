@@ -154,33 +154,32 @@
         }
         .arrow-container {
             display: flex;
-            justify-content: space-between;
-            width: 100%;
+            justify-content: center;
             margin-top: 20px;
             margin-bottom: 40px;
-            margin-left: 100px;
         }
-
+    
         .arrow {
-            width: 100px;
-            height: 75px;
-            background-color: transparent;
+            width: 60px;
+            height: 60px;
+            background-color: #004d40; /* Dark teal for arrow background */
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
-            transition: transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
+    
         .arrow img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 50%;
+            height: 50%;
         }
-
+    
         .arrow:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
         #discussion-section {
             width: 80%; 
@@ -650,7 +649,7 @@
     <div class="arrow-container">
         <a href="species.html">
             <div class="arrow">
-                <img src="XDesign (1) copy.png" alt="Left Arrow">
+                <img src="Background.png" alt="Left Arrow">
             </div>
         </a>
     </div>

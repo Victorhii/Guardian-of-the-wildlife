@@ -21,33 +21,57 @@
         }
         .arrow-container {
             display: flex;
-            justify-content: space-between;
-            width: 100%;
+            justify-content: center;
             margin-top: 20px;
             margin-bottom: 40px;
         }
-
+    
         .arrow {
-            width: 100px;
-            height: 75px;
-            background-color: transparent;
+            width: 60px;
+            height: 60px;
+            background-color: #004d40; /* Dark teal for arrow background */
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 50%;
-            transition: transform 0.3s;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-
+    
         .arrow img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
+            width: 50%;
+            height: 50%;
         }
-
+    
         .arrow:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
         }
+        button {
+    background-color: #004d40; /* Dark teal */
+    color: #fff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #00796b; /* Slightly lighter teal on hover */
+    transform: scale(1.05);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    background-color: #004d40; /* Darker color on click */
+    transform: scale(1);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
     </style>
 </head>
 <body>
@@ -57,16 +81,24 @@
         <h2>Population Trend (2010 - 2024)</h2>
         <div class="chart-wrapper">
             <canvas id="saharanCheetahPopulation"></canvas>
+            <button onclick="downloadCSV('saharanCheetahPopulation', saharanCheetahPopulationData, 'saharanCheetahPopulationData')" 
+                    style="margin-top: 10px;">Download CSV</button>
+            <button onclick="downloadPNG('saharanCheetahPopulation', 'saharanCheetahPopulationData')" 
+                    style="margin-top: 10px;">Download PNG</button>
         </div>
         <h2>Conservation Efforts</h2>
         <div class="chart-wrapper pie-chart-wrapper">
             <canvas id="saharanCheetahConservation"></canvas>
+            <button onclick="downloadCSV('saharanCheetahConservation', saharanCheetahConservationData, 'saharanCheetahConservationData')" 
+                    style="margin-top: 10px;">Download CSV</button>
+            <button onclick="downloadPNG('saharanCheetahConservation', 'saharanCheetahConservationData')" 
+                    style="margin-top: 10px;">Download PNG</button>
         </div>
     </div>
     <div class="arrow-container">
         <a href="africa.html">
             <div class="arrow">
-                <img src="XDesign (1) copy.png" alt="Left Arrow">
+                <img src="Background.png" alt="Left Arrow">
             </div>
         </a>
     </div>
@@ -101,6 +133,30 @@
             type: 'pie',
             data: saharanCheetahConservationData
         });
+        function downloadCSV(chartId, chartData, fileName) {
+    let csvContent = 'data:text/csv;charset=utf-8,';
+    csvContent += chartData.labels.join(',') + '\n';
+    csvContent += chartData.datasets[0].data.join(',') + '\n';
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', fileName + '.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Function to download chart as PNG
+function downloadPNG(chartId, fileName) {
+    const chartCanvas = document.getElementById(chartId);
+    const link = document.createElement('a');
+    link.href = chartCanvas.toDataURL('image/png');
+    link.download = fileName + '.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
     </script>
     
 </body>
